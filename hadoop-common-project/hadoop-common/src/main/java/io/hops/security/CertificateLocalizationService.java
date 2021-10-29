@@ -593,7 +593,7 @@ public class CertificateLocalizationService extends AbstractService
   public JWTSecurityMaterial getJWTMaterialLocation(String username, String applicationId)
     throws FileNotFoundException, InterruptedException {
     StorageKey key = StorageKey.newJWTInstance(username, applicationId);
-    
+
     return (JWTSecurityMaterial) getSecurityMaterialInternal(key);
   }
   
@@ -602,7 +602,8 @@ public class CertificateLocalizationService extends AbstractService
     SecurityMaterial material = materialLocation.get(key);
     LOG.debug("Trying to get material for key " + key);
     if (material == null) {
-      throw new FileNotFoundException("Materialized crypto material could not be found for user " + key);
+      return material;
+      //throw new FileNotFoundException("Materialized crypto material could not be found for user " + key);
     }
   
     synchronized (material) {

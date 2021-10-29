@@ -1105,7 +1105,8 @@ public class ContainerManagerImpl extends CompositeService implements
     }
     
     if (jwt == null || jwt.isEmpty()) {
-      throw new IOException("JWT is enabled but it either null or empty for application " + appId);
+      return;
+      //throw new IOException("JWT is enabled but it either null or empty for application " + appId);
     }
     try {
       context.getCertificateLocalizationService().materializeJWT(user, appId.toString(), user, jwt);
@@ -1317,7 +1318,9 @@ public class ContainerManagerImpl extends CompositeService implements
                 try {
                   JWTSecurityMaterial jwtMaterial = certLocService.
                       getJWTMaterialLocation(user, applicationID.toString());
-                  jwt = jwtMaterial.getToken();
+                  if (jwtMaterial != null) {
+                    jwt = jwtMaterial.getToken();
+                  }
                 } catch (InterruptedException ex) {
                   throw new YarnException("Interrupted while waiting to get JWT material for " + applicationID, ex);
                 }
@@ -1484,11 +1487,13 @@ public class ContainerManagerImpl extends CompositeService implements
       if (isJWTEnabled()) {
         JWTSecurityMaterial material = context.getCertificateLocalizationService()
             .getJWTMaterialLocation(applicationUser, applicationId);
-        if (resources == null) {
-          resources = new HashMap<>(1);
+        if(material != null) {
+          if (resources == null) {
+            resources = new HashMap<>(1);
+          }
+          resources.put(material.getTokenLocation().toFile(),
+                  JWTSecurityMaterial.JWT_LOCAL_RESOURCE_FILE);
         }
-        resources.put(material.getTokenLocation().toFile(),
-            JWTSecurityMaterial.JWT_LOCAL_RESOURCE_FILE);
       }
       
       if (resources != null) {

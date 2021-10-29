@@ -672,7 +672,7 @@
                   <goal>javah</goal>
                 </goals>
                 <configuration>
-                  <javahPath>${env.JAVA_HOME}/bin/javah</javahPath>
+                  <javahPath>/opt/jdk/jdk1.8.0_291/bin/javah</javahPath>
                   <javahClassNames>
                     <javahClassName>org.apache.hadoop.io.compress.zlib.ZlibCompressor</javahClassName>
                     <javahClassName>org.apache.hadoop.io.compress.zlib.ZlibDecompressor</javahClassName>
@@ -828,7 +828,7 @@
                   <goal>javah</goal>
                 </goals>
                 <configuration>
-                  <javahPath>${env.JAVA_HOME}/bin/javah</javahPath>
+                  <javahPath>/opt/jdk/jdk1.8.0_291/bin/javah</javahPath>
                   <javahClassNames>
                     <javahClassName>org.apache.hadoop.io.compress.zlib.ZlibCompressor</javahClassName>
                     <javahClassName>org.apache.hadoop.io.compress.zlib.ZlibDecompressor</javahClassName>
